@@ -1,0 +1,6 @@
+C:\Users\Nik\Documents\GitHub\Battlesim\Battlesim\Battlesim\bin\Debug\Battlesim.exe.config
+C:\Users\Nik\Documents\GitHub\Battlesim\Battlesim\Battlesim\bin\Debug\Battlesim.exe
+C:\Users\Nik\Documents\GitHub\Battlesim\Battlesim\Battlesim\bin\Debug\Battlesim.pdb
+C:\Users\Nik\Documents\GitHub\Battlesim\Battlesim\Battlesim\obj\Debug\Battlesim.csprojResolveAssemblyReference.cache
+C:\Users\Nik\Documents\GitHub\Battlesim\Battlesim\Battlesim\obj\Debug\Battlesim.exe
+C:\Users\Nik\Documents\GitHub\Battlesim\Battlesim\Battlesim\obj\Debug\Battlesim.pdb
