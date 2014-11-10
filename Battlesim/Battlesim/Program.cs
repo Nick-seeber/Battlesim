@@ -74,7 +74,7 @@ namespace Battlesim
                     break;
 
 
-                   // Console.ReadKey();
+                   
                 }
                 else if (turns)
                 {
@@ -118,7 +118,7 @@ namespace Battlesim
                      enterprise();
                 if (percent <= 8)
                 {
-                    
+                    //
                     sdamage = sword.Next(20, 35);
                     enemyhp = enemyhp - sdamage;
                     Console.WriteLine("you attacked with a photon torpedo for " + sdamage + " damage");
