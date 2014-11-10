@@ -10,26 +10,29 @@ namespace Battlesim
     class Program
     {
        static int playerhp = 100;
-       static int enemyhp = 10;
+       static int enemyhp = 200;
        static bool turns = true;
        static bool playing = true;
        static string name = string.Empty;
 
         static void Main(string[] args)
         {
+            //calling my battle simulator 
             battlesim();
-            //Romulan();
-            //enterprise();
+            
+            
             
             Console.ReadKey();
         }
 
         static void battlesim()
         {
-
+            //starfleet function is ascii art
             starfleet();
+            //Getting your name 
             Console.WriteLine("Please login with your name \n Login:");
             name = Console.ReadLine();
+            //clearing the console to writing the welcome message and instructions
             Console.Clear();
             Console.WriteLine( "Welcome Captian " + name + " You are captian of the Starship Enterprise ");
             Thread.Sleep(100);
@@ -53,20 +56,22 @@ namespace Battlesim
             while (playing)
             {
 
-                
+                //loop to see if the game is still going and no one has died also to decide whos turn it is.
                 if (playerhp <= 0)
                 {
 
 
-                    win();
+                    Loose();
                     //Console.ReadKey();
+                    break;
                 }
                 else if (enemyhp <= 0)
                 {
 
 
 
-                    Loose();
+                    win();
+                    break;
 
 
                    // Console.ReadKey();
@@ -86,26 +91,31 @@ namespace Battlesim
 
         static void attack()
         {
-            
+            //This function handles the attack on the enemy here I am declaring some variables.
             int sdamage = 0;
             int mdamage = 0;
             int HHP = 0;
             Random percentrng = new Random();
             int percent = percentrng.Next(1, 10);
-            string attackinput = string.Empty;
+            string attackinput = string.Empty.ToUpper();
             attackinput = Console.ReadLine();
+            Random sword = new Random();
+            Random magic = new Random();
+            Random Heal = new Random();
+            //This checkes to see if the user input is greater than 3 or more numbers that 1 number
             if (attackinput.Length < 1 || int.Parse(attackinput) > 3)
             {
                 Console.WriteLine("You stumbled and lost your turn!");
                 turns = false;
+                Console.ReadKey();
             }
             
-            Random sword = new Random();
-            Random magic = new Random();
-            Random Heal = new Random();
-            enterprise();
-            if (attackinput == "1")
+            
+            //this is the photon torpedo if statement, you have a 8 in 10 chance of hitting. So 80%
+             if (attackinput == "1")
             {
+                 //This calls the function for attack ascii art
+                     enterprise();
                 if (percent <= 8)
                 {
                     
@@ -113,6 +123,7 @@ namespace Battlesim
                     enemyhp = enemyhp - sdamage;
                     Console.WriteLine("you attacked with a photon torpedo for " + sdamage + " damage");
                     Console.WriteLine("Romulan HP: " + enemyhp);
+                    Console.WriteLine(name.ToUpper() + " HP:" + playerhp);
                 }
                 else if (percent > 
                     8)
@@ -120,16 +131,11 @@ namespace Battlesim
                     Console.WriteLine("You Missed!");
                 }
 
-                if (enemyhp <= 0)
-                {
-                    Console.WriteLine("You win!");
-                    Console.WriteLine("Romulan HP: " + enemyhp);
-                    Console.WriteLine(name.ToUpper() + " HP: "+ playerhp);
-                    playing = false;
-                }
+                
                 
 
             }
+                 //this is for the phasers
             else if (attackinput == "2")
             {
                 enterprise();
@@ -138,11 +144,13 @@ namespace Battlesim
                 
                 Console.WriteLine("you attacked with Phasers for " + mdamage + " damage" );
                 Console.WriteLine("Romulan HP: " + enemyhp);
+                Console.WriteLine(name + " HP: " + playerhp);
                 
 
                 
                 
             }
+                 //this is for the shield regenreation
             else if (attackinput == "3")
             {
                 enterprise();
@@ -150,6 +158,7 @@ namespace Battlesim
                 playerhp = playerhp + HHP;
                 Console.WriteLine("Your shields regenerated for " + HHP + "HP");
                 Console.WriteLine("Romulan HP: " + enemyhp);
+                Console.WriteLine(name +" HP: " + playerhp);
                 
                 
             }
@@ -161,19 +170,21 @@ namespace Battlesim
 
         static void defend()
         {
+            //the defend function handles when the player is being attacked by the romulans
             int edamage = 0;
-
+            //this calls the romulan ascii art function.
             Romulan();
-
+            //making a new random number
             Random defendattack = new Random();
-            Console.WriteLine("Romulans HP: " + enemyhp);
             
-
+            
+            //edamage is the string that will hold the amount of damage the romulans do with the num generator
+            // then I minus the edamage from the playerhp string.
             edamage = defendattack.Next(5, 15);
             playerhp = playerhp - edamage;
-
-            Console.WriteLine("The Romulans did " + edamage + " damage! \n" + name.ToUpper() + " HP is: " + playerhp );
-            
+            //writing to the console 
+            Console.WriteLine("The Romulans did " + edamage + " damage! \n" + name + " HP is: " + playerhp );
+            Console.WriteLine("Romulans HP: " + enemyhp);
             
            
             Console.WriteLine("Choose Your Attack! Press 1 for Photon Torpedos. Press 2 for Phasers. \n Press 3 to regenerate shields!");
@@ -216,10 +227,7 @@ namespace Battlesim
         }
         static void starfleet()
         {
-
-            
-
-            Console.WriteLine(@".                             
+            string starfleetstring = @".                             
                                           .:.                             
                                          .:::.                            
                                         .:::::.
@@ -232,8 +240,16 @@ namespace Battlesim
                              ****.:::'*************`:.****                                              
                                *.::'*****************`.*                                               
                                .:'  ***************    .                                             
-                              .");
-Console.WriteLine("                               STARFLEET HEADQUARTERS");
+                              .";
+
+            for (int i = 0; i < starfleetstring.Length - 1; i++)
+            {
+
+                Console.Write(starfleetstring[i]);
+                Thread.Sleep(4);
+            }
+            
+Console.WriteLine("  STARFLEET HEADQUARTERS");
         }
 
         static void Romulan()
@@ -275,13 +291,43 @@ Console.WriteLine("                               STARFLEET HEADQUARTERS");
         static void win()
         {
             Console.Clear();
-            Console.WriteLine("You Win!");
+            string winstring = @"
+__   __            _    _ _       _ _ 
+\ \ / /           | |  | (_)     | | |
+ \ V /___  _   _  | |  | |_ _ __ | | |
+  \ // _ \| | | | | |/\| | | '_ \| | |
+  | | (_) | |_| | \  /\  / | | | |_|_|
+  \_/\___/ \__,_|  \/  \/|_|_| |_(_|_) ";
+            for (int i = 0; i <= winstring.Length - 1; i++)
+            {
+                Console.Write(winstring[i]);
+                Thread.Sleep(5);
+            }
+                                      
+                                      
+            
+
         }
 
         static void Loose()
         {
             Console.Clear();
-            Console.WriteLine("You Loose");
+            string losestring = @"
+__   __            _                    _ _ 
+\ \ / /           | |                  | | |
+ \ V /___  _   _  | |     ___  ___  ___| | |
+  \ // _ \| | | | | |    / _ \/ __|/ _ \ | |
+  | | (_) | |_| | | |___| (_) \__ \  __/_|_|
+  \_/\___/ \__,_| \_____/\___/|___/\___(_|_)
+                                            
+                                            ";
+            for(int i = 0; i <= losestring.Length - 1; i++)
+            {
+                
+                Console.Write(losestring[i]);
+                Thread.Sleep(5);
+
+            }
         }
 
        
